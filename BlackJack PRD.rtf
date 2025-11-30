@@ -1,0 +1,399 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fnil\fcharset0 LucidaGrande-Bold;
+\f3\fswiss\fcharset0 Helvetica-BoldOblique;\f4\froman\fcharset0 Times-Roman;\f5\fswiss\fcharset0 Helvetica-Oblique;
+\f6\ftech\fcharset77 Symbol;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red81\green157\blue235;\red184\green93\blue213;
+\red155\green162\blue177;\red197\green136\blue83;\red136\green185\blue102;\red155\green163\blue178;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c38039\c68627\c93725;\cssrgb\c77647\c47059\c86667;
+\cssrgb\c67059\c69804\c74902;\cssrgb\c81961\c60392\c40000;\cssrgb\c59608\c76471\c47451;\cssrgb\c67166\c69917\c74931;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25040\viewh17960\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Requirement Gathering:\
+\
+
+\f1\b What are the rules of BlackJack?\
+
+\f0\b0 \
+It\'92s game between a dealer and player(s).\
+2 Cards are dealt to players and to the dealer.\
+The player decided to continue to get more cards or not.\
+Whom ever gets a higher number, between the dealer and the player, that is not above 21 wins.\
+Who ever gets 21 also win.\
+Who ever gets cards combined value above 21 loses.\
+\
+
+\f1\b What actions can a player take?
+\f0\b0 \
+Start a Game\
+add money to his wallet\
+Place a Bet\
+Ask for another card\
+Pass or Stand\
+End Game\
+\
+
+\f1\b What action does the dealer take?
+\f0\b0 \
+Deals the cards players and himself, after a player puts a bet.\
+Ask player if they want to take another card\
+Put a time limit on how long to wait for the other player (will ignore for phase 1)?\
+\
+
+\f1\b How does betting work?\
+
+\f0\b0 If the player win, the player get 1x the amount of money they bet, unless the player gets 21, then its 1.5x, unless both the dealer and the player get 21, then its draw.\
+The player loses 100% the amount they bet if the dealer win.\
+\
+UserStories from player perspective:\
+\
+As a player I want start the game\
+As a player I want to fund my wallet\
+As a player I want to place a bet\
+As player I want to receive my cards and know there total value.\
+As a player I want to choose hit or stand\
+As a player I want to decide to place another bet\
+As a player I expect my wallet to be auto credited if I win\
+As a player I want to end game \
+\
+WIN/LOSE:\
+Between the dealer and the player, Whom ever gets a higher number that is not above 21 wins.\
+Who ever gets 21 also win.\
+Who ever gets cards combined value above 21 loses.\
+If both the dealer and the player get the same number, it\'92s a tie.\
+\
+
+\f1\b GamePlay:\
+1. START GAME\
+   
+\f2 \uc0\u8595 
+\f1 \
+2. Player inputs starting balance\
+   
+\f2 \uc0\u8595 
+\f1 \
+3. ROUND START\
+   
+\f2 \uc0\u8595 
+\f1 \
+4. Player places bet\
+   
+\f2 \uc0\u8595 
+\f1 \
+5. Deal 2 cards to player\
+   
+\f2 \uc0\u8595 
+\f1 \
+6. Deal 2 cards to dealer (1 face up, 1 face down)\
+   
+\f2 \uc0\u8595 
+\f1 \
+7. Check for Blackjack\
+   
+\f2 \uc0\u8595 
+\f1 \
+8. Player's turn (hit or stand loop)\
+   
+\f2 \uc0\u8595 
+\f1 \
+9. If player didn't bust 
+\f2 \uc0\u8594 
+\f1  Dealer's turn (automatic)\
+   
+\f2 \uc0\u8595 
+\f1 \
+10. Determine winner\
+   
+\f2 \uc0\u8595 
+\f1 \
+11. Update player balance\
+   
+\f2 \uc0\u8595 
+\f1 \
+12. Ask: Play another round?\
+    
+\f2 \uc0\u8595 
+\f1 \
+13. If YES 
+\f2 \uc0\u8594 
+\f1  go to step 3\
+    If NO 
+\f2 \uc0\u8594 
+\f1  END GAME\
+\
+Class - Responsibility - Collaborator\
+\
+6 Main Classes:\
+
+\f0\b0 Deck\
+CARD\
+Hand -Player\
+Hand - Dealer\
+The Game
+\f1\b \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f3\i\fs36 \cf0 Class: Deck
+\f1\i0\fs24 \
+
+\f3\i Responsibilities: 
+\f0\i0\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f4 \cf0 \expnd0\expndtw0\kerning0
+-Manage the collection of playing cards \
+- Ensure random card distribution \
+- Provide cards when requested \
+- Prevent duplicate dealing
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b \cf0 Collaborators:
+\f0\b0 \
+Card\
+Game\
+
+\f3\i\b Attributes:
+\f1\i0 \
+
+\f0\b0 Lists of Card Objects\
+
+\f3\i\b Methods
+\f1\i0 :
+\f0\b0 \
+Shuffle_card()\
+Deal_card()\
+\
+
+\f1\b Class: Card
+\f0\b0 \
+
+\f3\i\b Responsibilities:\
+\pard\pardeftab720\partightenfactor0
+
+\f0\i0\b0 \cf0 \expnd0\expndtw0\kerning0
+- Single Card Representation  \
+-Suite and Rank Indenifier\
+- BlackJack points calculator
+\f3\i\b \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\i0 \cf0 Collaborators:\
+
+\f0\b0 Deck\
+Hand (player and dealer)\
+
+\f1\b Attributes:\
+
+\f0\b0 Card Rank\
+Card Suit\
+
+\f1\b Methods:\
+
+\f0\b0 Get_value() - int\
+__init__\
+__str__\
+\
+\
+
+\f1\b Class: Player
+\f0\b0 \
+
+\f1\b Responsibilities:
+\f3\i \
+\pard\pardeftab720\partightenfactor0
+
+\f0\i0\b0 \cf0 \expnd0\expndtw0\kerning0
+Manage their own money\
+Make betting decisions\
+Make gameplay decisions (hit/stand)\
+Hold their cards
+\f5\i \kerning1\expnd0\expndtw0  \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf0 Collaborator:\
+
+\f0\b0 Card\
+Dealer\
+Hand \
+
+\f1\b Attributes:
+\f0\b0 \
+Balance\
+Currnet_bet\
+current_hand \
+
+\f1\b Method:
+\f0\b0 \
+__init__(starting balance at 0) int\
+Add_fund()\
+Place_bet()\
+can_afford()\
+Win_bet()\
+Lose_bet()\
+Push_bet()\
+Get_balance()\
+\
+\
+
+\f1\b Class: Hand\
+
+\f0\b0 Responsibilities:\
+\pard\pardeftab720\partightenfactor0
+
+\f4 \cf3 \expnd0\expndtw0\kerning0
+-\cf0  Manage a collection of Card objects\
+ \cf3 -\cf0  Calculate total Blackjack value of cards\
+ \cf3 -\cf0  Determine \cf4 if\cf0  hand \cf4 is\cf0  bust \cf5 (\cf0 over \cf6 21\cf5 )\
+\pard\pardeftab720\partightenfactor0
+\cf0  \cf3 -\cf0  Display cards \cf4 in\cf0  readable \cf7 format
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b \cf0 Collaborator
+\f0\b0 :\
+Card\
+
+\f1\b Attributes:
+\f0\b0 \
+Cards in hand - List[Card]\
+
+\f1\b Method:
+\f0\b0 \
+__init__initialize empty hand\
+Add_card()\
+get_hand_value()\
+is_Bust() Boolean\
+has_blackjack()\
+Show_hand() - String\
+Clear_hand()\
+__str__return formatted string\
+\
+Class: Dealer\
+Reposibilties:\
+\pard\pardeftab720\partightenfactor0
+
+\f4 \cf0 \expnd0\expndtw0\kerning0
+- Play according to fixed Blackjack rules \
+- Hit on 16 or below, stand on 17 or above \
+- Display partial hand (hide hole card initially)\
+ - Play turn automatically (no user input)
+\f0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Collaborator:\
+-Hand\
+-Game\
+Attributes:\
+Hand: list[card] - inherited \
+Method():\
+__init__\
+should_hit() - boolean\
+play_turn() - \
+show_upcard()-str\
+\pard\pardeftab720\partightenfactor0
+
+\f4 \cf5 \expnd0\expndtw0\kerning0
+(\cf0 Inherited \cf4 from\cf0  Hand\cf5 ):\cf0 \
+ \cf3 -\cf0  add_card\cf5 (\cf0 card\cf5 :\cf0  Card\cf5 )\cf0 \
+ \cf3 -\cf0  get_hand_value\cf5 ()\cf0  
+\f6 \uc0\u8594 
+\f4  \cf7 int\cf0  \
+ \cf3 -\cf0  is_bust\cf5 ()\cf0  
+\f6 \uc0\u8594 
+\f4  \cf7 bool\cf0 \
+ \cf3 -\cf0  has_blackjack\cf5 ()\cf0  
+\f6 \uc0\u8594 
+\f4  \cf7 bool\cf0  \
+ \cf3 -\cf0  show_hand\cf5 ()\cf0  
+\f6 \uc0\u8594 
+\f4  \cf7 list\cf5 [\cf7 str\cf5 ]\cf0 \
+ \cf3 -\cf0  clear_hand\cf5 ()\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 Class Game\
+Responsibilities:\
+\pard\pardeftab720\partightenfactor0
+\cf0 - Control overall game flow (start, rounds, end) \
+- Initialize game objects (Deck, Player, Dealer)\
+ - Get player's starting balance and bets \
+- Orchestrate each round: \
+\'95 Shuffle and deal initial cards \
+\'95 Manage player's turn (hit/stand decisions)\
+ \'95 Manage dealer's turn (automatic play) \
+\'95 Determine round outcome and winner \
+\'95 Update player balance accordingly\
+ - Handle user input/output (UI) \
+- Determine when game ends\cf2 \
+Collaborator:\
+Deck\
+Player\
+Dealer\
+Attributes:\
+\pard\pardeftab720\partightenfactor0
+\cf3 -\cf0  deck\cf5 :\cf0  Deck \cf5 (\cf0 the card deck\cf5 )\
+\pard\pardeftab720\partightenfactor0
+\cf0  \cf3 -\cf0  player\cf5 :\cf0  Player \cf5 (\cf0 the player \cf7 object\cf5 )\cf0  \
+\pard\pardeftab720\partightenfactor0
+\cf3 -\cf0  dealer\cf5 :\cf0  Dealer \cf5 (\cf0 the dealer \cf7 object\cf5 )\cf0  \
+\cf3 -\cf0  round_number\cf5 :\cf0  \cf7 int\cf0  \cf5 (\cf0 current \cf7 round\cf5 )\cf0  \
+\cf3 -\cf0  game_active\cf5 :\cf0  \cf7 bool\cf0  \cf5 (\cf4 is\cf0  game running\cf5 )\cf2 \
+method\
+-start_game()\
+-ask_for_funds()\
+-hit_stand()\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+\f5\i \
+\
+\
+\
+
+\f3\b \
+
+\f0\i0\b0 \
+\
+\
+\
+
+\f1\b \
+
+\f0\b0 \
+\
+\
+\
+\
+
+\f1\b A list of features for later phases:
+\f0\b0 \
+More than 1 player.\
+Maximum waiting time for player.\
+Split Cards\
+Double Down\
+Insurance.\
+See statistics of how much a player won.\
+1 vs 11 for ACE\
+Decimals in entering balance\
+\
+\
+\
+\
+}

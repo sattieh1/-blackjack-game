@@ -84,32 +84,82 @@ class Game:
         self.dealer = Dealer()
 
     def play(self):
-    print(f"Welcome to Blackjack!\nYour current balance is ${self.player.balance}")
+        print(f"Welcome to Blackjack!\nYour current balance is ${self.player.balance}")
     
-    # Place Bet
-    bet_value = int(input("How much do you want to bet? $"))
-    self.player.place_bet(bet_value)
+        # Place Bet
+        bet_value = int(input("How much do you want to bet? $"))
+        self.player.place_bet(bet_value)
     
-    # Deal Cards
-    self.player.add_card(self.deck.deal_card())
-    self.dealer.add_card(self.deck.deal_card())
-    self.player.add_card(self.deck.deal_card())
-    self.dealer.add_card(self.deck.deal_card())
+        # Deal Cards
+        self.player.add_card(self.deck.deal_card())
+        self.dealer.add_card(self.deck.deal_card())
+        self.player.add_card(self.deck.deal_card())
+        self.dealer.add_card(self.deck.deal_card())
     
-    # Show cards
-    print(f"\nYour cards: {self.player.hand[0]} and {self.player.hand[1]}")
-    print(f"Total: {self.player.get_hand_value()}")
-    print(f"\nDealer shows: {self.dealer.hand[0]} and ??")
+        # Show cards
+        print(f"\nYour cards: {self.player.hand[0]} and {self.player.hand[1]}")
+        print(f"Total: {self.player.get_hand_value()}")
+        print(f"\nDealer shows: {self.dealer.hand[0]} and ??")
 
-    # Hit or Stand
-    count = 3
-    while player.get_hand_value() <= 21:
-        hit_or_stand = input("Hit or Stand")
-        if hit_or_stand == "Hit" or "hit":
-            self.player.add_card(self.deck.deal_card())
-            print("You got a {self.player.hand[{count}]})
-            count +=1
-            if player.get_hand_value() >= 21:
+        # Hit or Stand
+        while True:
+            hit_or_stand = input("Hit or Stand")
+            if hit_or_stand.lower() == "hit":
+                self.player.add_card(self.deck.deal_card())
+                print(f"You got a {self.player.hand[-1]}")
+                print(f"Total: {self.player.get_hand_value()}")
+            if hit_or_stand.lower() == "stand":
+                print("Let see what the dealer has!")
+                break
+            if self.player.is_bust():
+                print("BUST! You went over 21!")
+                break    
+        # Dealer wins or dealer shows card
+        if self.player.is_bust():
+            self.player.lose_bet()
+            print(f"The Dealer won, and your new balance is {self.player.balance}")
+            #Cashout()  
+        else:
+            print(f"Dealer has a {self.dealer.hand[-1]}") #show second card
+            print(f"Dealer's Total: {self.dealer.get_hand_value()}")
+            while self.dealer.get_hand_value() < 17:
+                self.dealer.add_card(self.deck.deal_card())
+                print(f"Dealer got a {self.dealer.hand[-1]}")
+                print(f"Dealer's Total: {self.dealer.get_hand_value()}")
+                if self.dealer.is_bust():
+                    print("The Dealer is BUST")
+                    break
+            #Who won?        
+            if self.dealer.is_bust():
+                print("Player Won")
+                self.player.win_bet()
+                print(f"Your balance is now {self.player.balance}")
+            else:
+                print(f"The dealer has a value of{self.dealer.get_hand_value()} and player has a value of {self.player.get_hand_value()}")
+                if self.player.get_hand_value() > self.dealer.get_hand_value():
+                    print("Player Won")
+                    self.player.win_bet()
+                    print(f"Player balance is now {self.player.balance}")
+                elif  self.player.get_hand_value() < self.dealer.get_hand_value():
+                    print("Dealer Won")
+                    self.player.lose_bet()
+                    print(f"Player balance is now {self.player.balance}")
+                else:
+                    print("It's a Tie")
+                    print(f"Player balance is now {self.player.balance}")   
+
+game = Game()
+game.play()
+               
+
+
+
+
+
+
+            
+
+            
                 
 
                     
